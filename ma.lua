@@ -19,6 +19,18 @@ local gethui = gethui or function()
     return CoreGui
 end
 
+-- Safely parents a UI instance, suppressing errors.
+-- Provides a fallback when the environment lacks SafeParentUI.
+local SafeParentUI = SafeParentUI or function(UI, Parent)
+    local ok, err = pcall(function()
+        UI.Parent = Parent
+    end)
+    if not ok then
+        warn(("SafeParentUI: failed to parent %s – %s"):format(tostring(UI), tostring(err)))
+    end
+    return UI
+end
+
 local LocalPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
 local Mouse = LocalPlayer:GetMouse()
 
