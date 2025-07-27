@@ -23,6 +23,7 @@ end
 -- Provides a fallback when the environment lacks SafeParentUI.
 local SafeParentUI = SafeParentUI or function(UI, Parent)
     local ok, err = pcall(function()
+        syn.protect_gui(UI)
         UI.Parent = Parent
     end)
     if not ok then
