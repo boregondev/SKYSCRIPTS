@@ -1038,21 +1038,6 @@ end
 local originalSafeParentUI = SafeParentUI
 local originalProtectGUI   = protectgui
 
--- Protect the function references
-if hookfunction then
-    hookfunction(SafeParentUI, originalSafeParentUI)
-    if originalProtectGUI then
-        hookfunction(protectgui, originalProtectGUI)
-    end
-else
-    -- Fallback: prevent reassignment
-    pcall(function()
-        if isreadonly then
-            setreadonly(_G, true)
-        end
-    end)
-end
-
 local CoreGui = game:GetService("CoreGui")
 -- Prefer the hidden GUI API from exploits if available
 local HIDDEN_UI = (syn and syn.get_hidden_ui and syn.get_hidden_ui()) or gethui()
